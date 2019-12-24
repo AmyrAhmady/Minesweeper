@@ -38,8 +38,8 @@ namespace Minesweeper.Core
                     };
                     c.SetupDesign();
                     c.MouseDown += Cell_MouseClick;
-                    
-                    Cells[x-1, y-1] = c;
+
+                    Cells[x - 1, y - 1] = c;
                     Minesweeper.Controls.Add(c);
                 }
             }
@@ -75,7 +75,7 @@ namespace Minesweeper.Core
 
         private void Cell_MouseClick(object sender, MouseEventArgs e)
         {
-            var cell = (Cell) sender;
+            var cell = (Cell)sender;
 
             if (cell.CellState == CellState.Opened)
                 return;
@@ -99,10 +99,11 @@ namespace Minesweeper.Core
 
         private void CheckForWin()
         {
-            var correctMines = 0;
-            var incorrectMines = 0;
+            //var correctMines = 0;
+            //var incorrectMines = 0;
+            var openedCells = 0;
 
-            for (var x = 0; x < Width; x++)
+            /*for (var x = 0; x < Width; x++)
             {
                 for (var y = 0; y < Height; y++)
                 {
@@ -115,6 +116,22 @@ namespace Minesweeper.Core
             }
 
             if (correctMines == NumMines && incorrectMines == 0)
+            {
+                MessageBox.Show("You won!");
+                RestartGame();
+            }*/
+
+            for (var x = 0; x < Width; x++)
+            {
+                for (var y = 0; y < Height; y++)
+                {
+                    var c = Cells[x, y];
+                    if (c.CellState == CellState.Opened)
+                        openedCells++;
+                }
+            }
+
+            if (openedCells == (Cells.Length - NumMines))
             {
                 MessageBox.Show("You won!");
                 RestartGame();
